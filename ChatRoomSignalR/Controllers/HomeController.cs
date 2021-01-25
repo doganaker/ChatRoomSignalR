@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ChatRoomSignalR.Models.Context;
+using ChatRoomSignalR.Models.Entities;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +10,18 @@ namespace ChatRoomSignalR.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ChatContext _chatcontext;
+
+        public HomeController(ChatContext chatcontext)
+        {
+            _chatcontext = chatcontext;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            List<AdminUser> users = _chatcontext.AdminUsers.ToList();
+
+            return View(users);
         }
     }
 }

@@ -3,5 +3,92 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+@model List<ChatRoomSignalR.Models.Entities.AdminUser>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+
+    <style>
+        .flat{
+            display:flex;
+        }
+        #contacts a{
+            text-decoration:none;
+            color: black;
+        }
+        #contacts a:hover{
+            color:dodgerblue;
+        }
+        #contacts li{
+            list-style-type:none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Chat Room</h1>
+        </header>
+    </div>
+    <br />
+    <br />
+    <div class="container flat">
+        
+        <div class="col-md-4">
+            <h3>Contacts</h3>
+            <ul id="contacts">
+                @foreach (var item in Model)
+                {
+                    <a href=""><li>@item.EMail</li></a>
+                }
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h3>Chat</h3>
+            <input type="text" name="name" id="msg" value="" />
+            <button id="send" class="btn btn-primary"> Send Message</button>
+
+            <ul id="chat">
+            </ul>
+        </div>
+        
+
+    </div>
+
+    <script>
+         "use strict";
+         var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+         connection.on("ReceiveMessage", function (msg) {
+             $("ul").append("<li>" + msg + "</li>");
+         });
+         connection.start().then(function () {
+             console.log("Connection is OK!")
+         }).catch(function (err) {
+             return console.error(err.toString());
+         });
+         $("#send").click(function () {
+             var message = $("#msg").val();
+             connection.invoke("SendMessage",message).catch(function (err) {
+                 //return console.error(err.toString());
+             });
+             $("#msg").val("")
+         })
+
+
+    </script>
+</body>
+</html>
+
 

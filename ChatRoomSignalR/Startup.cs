@@ -1,4 +1,5 @@
 using ChatRoomSignalR.Hubs;
+using ChatRoomSignalR.Models.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -19,6 +20,7 @@ namespace ChatRoomSignalR
         {
             services.AddMvc().AddRazorRuntimeCompilation();
             services.AddSignalR();
+            services.AddDbContext<ChatContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -10,6 +10,7 @@ namespace ChatRoomSignalR.Hubs
     {
         public override Task OnConnectedAsync()
         {
+            var id = Context.ConnectionId;
             return base.OnConnectedAsync();
         }
 

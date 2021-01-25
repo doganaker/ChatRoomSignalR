@@ -18,6 +18,7 @@ namespace ChatRoomSignalR.Controllers
         }
         
         public IActionResult Login()
+        
         {
             return View();
         }
@@ -27,8 +28,7 @@ namespace ChatRoomSignalR.Controllers
         {
             var user = _chatContext.AdminUsers.FirstOrDefault(x => x.EMail == model.Email && x.Password == model.Password);
 
-            
-
+          //  user.ConnectionID = 
             return Redirect("/Home/Index");
         }
     }
