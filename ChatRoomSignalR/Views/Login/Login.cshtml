@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+}
+@model ChatRoomSignalR.Models.VM.LoginVM
+
+<h1>Login</h1>
+
+<br />
+
+<form action="/Login/Login" method="post">
+    @Html.LabelFor(q => q.Email)
+    @Html.TextBoxFor(q => q.Email, new { @type = "email" })
+
+    <br />
+
+    @Html.LabelFor(q => q.Password)
+    @Html.PasswordFor(q => q.Password)
+
+    <button type="submit">Login</button>
+</form>
+
+
