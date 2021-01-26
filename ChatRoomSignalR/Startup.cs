@@ -1,5 +1,6 @@
 using ChatRoomSignalR.Hubs;
 using ChatRoomSignalR.Models.Context;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +22,10 @@ namespace ChatRoomSignalR
             services.AddMvc().AddRazorRuntimeCompilation();
             services.AddSignalR();
             services.AddDbContext<ChatContext>();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = "/Login/Login/";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,10 +38,11 @@ namespace ChatRoomSignalR
 
             app.UseRouting();
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("default", "{Controller=Home}/{Action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{Controller=Login}/{Action=Login}/{id?}");
                 endpoints.MapHub<ChatHub>("/chathub");
             });
         }

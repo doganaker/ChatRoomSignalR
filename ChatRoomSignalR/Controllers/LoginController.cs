@@ -1,9 +1,11 @@
 ﻿using ChatRoomSignalR.Models.Context;
 using ChatRoomSignalR.Models.VM;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ChatRoomSignalR.Controllers
@@ -18,18 +20,37 @@ namespace ChatRoomSignalR.Controllers
         }
         
         public IActionResult Login()
-        
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Login(LoginVM model)
+        public async Task<IActionResult> Login(LoginVM model)
         {
             var user = _chatContext.AdminUsers.FirstOrDefault(x => x.EMail == model.Email && x.Password == model.Password);
 
-          //  user.ConnectionID = 
-            return Redirect("/Home/Index");
+            if(user != null)
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Email, model.Email)
+                };
+
+                var userIdentity = new ClaimsIdentity(claims, "login");
+
+                ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+
+                await HttpContext.SignInAsync(principal);
+
+                return Redirect("/Home/Index");
+            }
+            else
+            {
+                ViewBag.error = "You do not exist!!";
+                return View();
+            }
         }
+
+        
     }
 }
