@@ -19,6 +19,7 @@ namespace ChatRoomSignalR.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Name = HttpContext.User.Claims.ToArray()[0].Value;
             List<AdminUser> users = _chatcontext.AdminUsers.ToList();
 
             return View(users);

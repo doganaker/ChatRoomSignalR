@@ -20,8 +20,8 @@ namespace ChatRoomSignalR
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().AddRazorRuntimeCompilation();
-            services.AddSignalR();
             services.AddDbContext<ChatContext>();
+            services.AddSignalR();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
                 options.LoginPath = "/Login/Login/";

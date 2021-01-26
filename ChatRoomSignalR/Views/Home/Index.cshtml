@@ -37,6 +37,10 @@
 </head>
 <body>
     <div class="container">
+        <br />
+        <p>Welcome, @ViewBag.Name</p>
+        <br />
+        <br />
         <header>
             <h1>Chat Room</h1>
         </header>
@@ -73,7 +77,7 @@
 
         connection.on("ReceiveMessage", function (msg) {
 
-            $("ul").append("<li>" + msg + "</li>");
+            $("#chat").append("<li>" + msg + "</li>");
         });
 
         connection.start().then(function () {
@@ -89,7 +93,7 @@
 
             var message = $("#msg").val();
 
-            connection.invoke("SendMessage", message).catch(function (err) {
+                connection.invoke("SendMessage",message).catch(function (err) {
 
             });
 

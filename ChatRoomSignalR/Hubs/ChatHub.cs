@@ -10,47 +10,40 @@ namespace ChatRoomSignalR.Hubs
 {
     public class ChatHub : Hub
     {
-        private readonly ChatContext _chatcontext;
-        private readonly HttpContext _context;
+        //private readonly ChatContext _chatcontext;
+        //private readonly HttpContext _context;
 
-        public ChatHub(ChatContext chatcontext, HttpContext context)
-        {
-            _chatcontext = chatcontext;
-            _context = context;
-        }
+        //public ChatHub(ChatContext chatcontext, HttpContext context)
+        //{
+        //    _chatcontext = chatcontext;
+        //    _context = context;
+        //}
 
         public override Task OnConnectedAsync()
         {
-            var id = Context.ConnectionId;
+            //var id = Context.ConnectionId;
 
-            var email = _context.User.Claims.ToArray()[0].Value;
-            
-            var currentUser = _chatcontext.AdminUsers.FirstOrDefault(x => x.EMail == email);
+            //var email = _context.User.Claims.ToArray()[0].Value;
 
-            currentUser.ConnectionID = id;
+            //var currentUser = _chatcontext.AdminUsers.FirstOrDefault(x => x.EMail == email);
 
-            _chatcontext.SaveChanges();
+            //currentUser.ConnectionID = id;
+
+            //_chatcontext.AdminUsers.Add(currentUser);
+            //_chatcontext.SaveChanges();
 
             return base.OnConnectedAsync();
         }
 
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            var email = _context.User.Claims.ToArray()[0].Value;
-
-            var currentUser = _chatcontext.AdminUsers.FirstOrDefault(x => x.EMail == email);
-
-            currentUser.ConnectionID = "";
-
-            _chatcontext.SaveChanges();
-
             return base.OnDisconnectedAsync(exception);
         }
 
         public async Task SendMessage(string message)
         {
             string msg = message;
-            await Clients.Client("connectionid").SendAsync("ReceiveMessage", msg);
+            await Clients.All.SendAsync("ReceiveMessage", msg);
         }
     }
 }
