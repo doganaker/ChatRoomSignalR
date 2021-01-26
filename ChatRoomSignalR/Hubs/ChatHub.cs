@@ -10,27 +10,22 @@ namespace ChatRoomSignalR.Hubs
 {
     public class ChatHub : Hub
     {
-        //private readonly ChatContext _chatcontext;
-        //private readonly HttpContext _context;
+        private ChatContext _chatcontext;
 
-        //public ChatHub(ChatContext chatcontext, HttpContext context)
-        //{
-        //    _chatcontext = chatcontext;
-        //    _context = context;
-        //}
 
         public override Task OnConnectedAsync()
         {
-            //var id = Context.ConnectionId;
+            _chatcontext = new ChatContext();
 
-            //var email = _context.User.Claims.ToArray()[0].Value;
+            var email = Context.User.Claims.ToArray()[0].Value;
 
-            //var currentUser = _chatcontext.AdminUsers.FirstOrDefault(x => x.EMail == email);
+            var currentUser = _chatcontext.AdminUsers.FirstOrDefault(x => x.EMail == email);
 
-            //currentUser.ConnectionID = id;
+            currentUser.ConnectionID = Context.ConnectionId;
 
-            //_chatcontext.AdminUsers.Add(currentUser);
-            //_chatcontext.SaveChanges();
+            _chatcontext.AdminUsers.Add(currentUser);
+            
+            _chatcontext.SaveChanges();
 
             return base.OnConnectedAsync();
         }
