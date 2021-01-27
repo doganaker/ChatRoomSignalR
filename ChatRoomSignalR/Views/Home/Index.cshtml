@@ -23,12 +23,9 @@
         .flat{
             display:flex;
         }
-        #contacts a{
-            text-decoration:none;
-            color: black;
-        }
-        #contacts a:hover{
+        #contacts li:hover{
             color:dodgerblue;
+            cursor:pointer;
         }
         #contacts li{
             list-style-type:none;
@@ -54,7 +51,8 @@
             <ul id="contacts">
                 @foreach (var item in Model)
                 {
-                    <a href=""><li>@item.EMail</li></a>
+                    <li id="@item.ID">@item.EMail</li>
+                    @*<input type="hidden" name="id" value="@item.ID" />*@
                 }
             </ul>
         </div>
@@ -99,6 +97,12 @@
 
             $("#msg").val("");
         });
+
+        //$("#contacts li").click(function () {
+
+        //    var id = $(this).attr("id");
+        //    console.log(id);
+        //})
 
     </script>
 </body>

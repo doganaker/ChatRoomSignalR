@@ -12,7 +12,6 @@ namespace ChatRoomSignalR.Hubs
     {
         private ChatContext _chatcontext;
 
-
         public override Task OnConnectedAsync()
         {
             _chatcontext = new ChatContext();
@@ -23,8 +22,6 @@ namespace ChatRoomSignalR.Hubs
 
             currentUser.ConnectionID = Context.ConnectionId;
 
-            _chatcontext.AdminUsers.Add(currentUser);
-            
             _chatcontext.SaveChanges();
 
             return base.OnConnectedAsync();
@@ -35,10 +32,10 @@ namespace ChatRoomSignalR.Hubs
             return base.OnDisconnectedAsync(exception);
         }
 
-        public async Task SendMessage(string message)
+        public async Task SendMessage(string message, string connectionid)
         {
             string msg = message;
-            await Clients.All.SendAsync("ReceiveMessage", msg);
+            await Clients.Client(connectionid).SendAsync("ReceiveMessage", msg);
         }
     }
 }
