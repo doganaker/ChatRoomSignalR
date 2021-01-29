@@ -92,14 +92,15 @@
 
             return console.error(err.ToString());
         });
-      
+
+        var connectionid = "";
+
         $("#contacts li").click(function () {
 
             $(".chatbox").css('visibility', 'visible');
 
             var id = $(this).attr("id");
             var url = "/Home/User/" + id;
-            var connectionid = "";
 
             $.ajax({
                 type: "GET",
@@ -111,24 +112,27 @@
                 }
             });
 
-            $("#btnSend").click(function () {
-
-                var message = $("#msg").val();
-
-                connection.invoke("SendMessage", connectionid, message).catch(function (err) {
-
-                });
-                console.log(message);
-                console.log(connectionid);
-                $("#msg").val("");
-
-            });
-
-            connection.on("ReceiveMessage", function (msg) {
-
-                $("#chat").append("<li>" + msg + "</li>");
-            });
         });
+
+
+        $("#btnSend").click(function () {
+
+            var message = $("#msg").val();
+
+            connection.invoke("SendMessage", connectionid, message).catch(function (err) {
+
+            });
+
+            $("#msg").val("");
+
+        });
+
+        connection.on("ReceiveMessage", function (msg) {
+
+            $("#chat").append("<li>" + msg + "</li>");
+        });
+
+
 
     </script>
 </body>
