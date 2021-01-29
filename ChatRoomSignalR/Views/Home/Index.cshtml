@@ -41,7 +41,7 @@
 <body>
     <div class="container">
         <br />
-        <p>Welcome, @ViewBag.Name</p>
+        <p>Welcome, @ViewBag.Name.Substring(0, 1).ToUpper()@ViewBag.Name.Substring(1, ViewBag.Name.IndexOf("@") - 1)</p>
         <br />
         <br />
         <header>
@@ -57,8 +57,10 @@
             <ul id="contacts">
                 @foreach (var item in Model)
                 {
-                    <li id="@item.ID">@item.EMail</li>
-                    @*<input type="hidden" name="id" value="@item.ID" />*@
+                    if (item.EMail != ViewBag.Name)
+                    {
+                        <li id="@item.ID">@item.EMail.Substring(0,1).ToUpper()@item.EMail.Substring(1,item.EMail.IndexOf("@")-1)</li>
+                    }
                 }
             </ul>
         </div>
