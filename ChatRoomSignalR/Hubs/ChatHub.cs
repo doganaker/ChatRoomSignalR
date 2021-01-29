@@ -35,6 +35,7 @@ namespace ChatRoomSignalR.Hubs
         public async Task SendMessage(string connectionid, string message)
         {
             string msg = message;
+            await Clients.Caller.SendAsync("ReceiveMessage", msg);
             await Clients.Client(connectionid).SendAsync("ReceiveMessage", msg);
         }
     }

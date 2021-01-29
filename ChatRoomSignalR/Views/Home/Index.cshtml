@@ -75,6 +75,21 @@
     </div>
 
     <script>
+
+        "use strict";
+
+        var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+        
+
+        connection.start().then(function () {
+
+            console.log("Connection established!")
+
+        }).catch(function (err) {
+
+            return console.error(err.ToString());
+        });
       
         $("#contacts li").click(function () {
 
@@ -94,25 +109,6 @@
                 }
             });
 
-
-            "use strict";
-
-            var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-
-            connection.on("ReceiveMessage", function (msg) {
-
-                $("#chat").append("<li>" + msg + "</li>");
-            });
-
-            connection.start().then(function () {
-
-                console.log("Connection established!")
-
-            }).catch(function (err) {
-
-                return console.error(err.ToString());
-            });
-
             $("#btnSend").click(function () {
 
                 var message = $("#msg").val();
@@ -120,8 +116,15 @@
                 connection.invoke("SendMessage", connectionid, message).catch(function (err) {
 
                 });
-
+                console.log(message);
+                console.log(connectionid);
                 $("#msg").val("");
+
+            });
+
+            connection.on("ReceiveMessage", function (msg) {
+
+                $("#chat").append("<li>" + msg + "</li>");
             });
         });
 
