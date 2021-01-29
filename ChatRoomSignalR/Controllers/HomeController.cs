@@ -24,5 +24,11 @@ namespace ChatRoomSignalR.Controllers
 
             return View(users);
         }
+
+        public IActionResult User(int id)
+        {
+            var user = _chatcontext.AdminUsers.Find(id);
+            return Json(user);
+        }
     }
 }

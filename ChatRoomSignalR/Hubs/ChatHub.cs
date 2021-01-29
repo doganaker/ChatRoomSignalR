@@ -32,7 +32,7 @@ namespace ChatRoomSignalR.Hubs
             return base.OnDisconnectedAsync(exception);
         }
 
-        public async Task SendMessage(string message, string connectionid)
+        public async Task SendMessage(string connectionid, string message)
         {
             string msg = message;
             await Clients.Client(connectionid).SendAsync("ReceiveMessage", msg);

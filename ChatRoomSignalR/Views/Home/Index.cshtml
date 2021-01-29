@@ -20,15 +20,21 @@
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
 
     <style>
-        .flat{
-            display:flex;
+        .flat {
+            display: flex;
         }
-        #contacts li:hover{
-            color:dodgerblue;
-            cursor:pointer;
+
+        #contacts li:hover {
+            color: dodgerblue;
+            cursor: pointer;
         }
-        #contacts li{
-            list-style-type:none;
+
+        #contacts li {
+            list-style-type: none;
+        }
+
+        .chatbox{
+            visibility:hidden;
         }
     </style>
 </head>
@@ -45,7 +51,7 @@
     <br />
     <br />
     <div class="container flat">
-        
+
         <div class="col-md-4">
             <h3>Contacts</h3>
             <ul id="contacts">
@@ -56,7 +62,7 @@
                 }
             </ul>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 chatbox">
             <h3>Chat</h3>
             <input type="text" name="name" id="msg" value="" />
             <button id="btnSend" class="btn btn-primary"> Send </button>
@@ -64,45 +70,60 @@
             <ul id="chat">
             </ul>
         </div>
-        
+
 
     </div>
 
     <script>
-        "use strict";
+      
+        $("#contacts li").click(function () {
 
-        var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+            $(".chatbox").css('visibility', 'visible');
 
-        connection.on("ReceiveMessage", function (msg) {
+            var id = $(this).attr("id");
+            var url = "/Home/User/" + id;
+            var connectionid = "";
 
-            $("#chat").append("<li>" + msg + "</li>");
-        });
-
-        connection.start().then(function () {
-
-            console.log("Connection established!")
-
-        }).catch(function (err) {
-
-            return console.error(err.ToString());
-        });
-
-        $("#btnSend").click(function () {
-
-            var message = $("#msg").val();
-
-                connection.invoke("SendMessage",message).catch(function (err) {
-
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "json",
+                success: function (user) {
+                    connectionid = user.connectionID;
+                    console.log(connectionid);
+                }
             });
 
-            $("#msg").val("");
+
+            "use strict";
+
+            var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+            connection.on("ReceiveMessage", function (msg) {
+
+                $("#chat").append("<li>" + msg + "</li>");
+            });
+
+            connection.start().then(function () {
+
+                console.log("Connection established!")
+
+            }).catch(function (err) {
+
+                return console.error(err.ToString());
+            });
+
+            $("#btnSend").click(function () {
+
+                var message = $("#msg").val();
+
+                connection.invoke("SendMessage", connectionid, message).catch(function (err) {
+
+                });
+
+                $("#msg").val("");
+            });
         });
-
-        //$("#contacts li").click(function () {
-
-        //    var id = $(this).attr("id");
-        //    console.log(id);
-        //})
 
     </script>
 </body>
