@@ -33,8 +33,20 @@
             list-style-type: none;
         }
 
-        .chatbox{
-            visibility:hidden;
+        #chat li{
+            list-style-type:none;
+        }
+
+        .chatbox {
+            visibility: hidden;
+        }
+        .dot {
+            height: 10px;
+            width: 10px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -61,11 +73,13 @@
                     {
                         if (item.OnlineStatus == true)
                         {
-                            <li id="@item.ID" style="color:forestgreen">@item.EMail.Substring(0, 1).ToUpper()@item.EMail.Substring(1, item.EMail.IndexOf("@") - 1)</li>
+                            
+                            <li id="@item.ID"><span class="dot" style="background-color:green"></span>@item.EMail.Substring(0, 1).ToUpper()@item.EMail.Substring(1, item.EMail.IndexOf("@") - 1)</li>
                         }
                         else
                         {
-                            <li id="@item.ID" style="color:red">@item.EMail.Substring(0, 1).ToUpper()@item.EMail.Substring(1, item.EMail.IndexOf("@") - 1)</li>
+                            
+                            <li id="@item.ID"><span class="dot" style="background-color:red"></span>@item.EMail.Substring(0, 1).ToUpper()@item.EMail.Substring(1, item.EMail.IndexOf("@") - 1)</li>
                         }
 
                     }
@@ -144,11 +158,11 @@
 
 
         connection.on("Onlineuser", function (userid) {
-            $("#" + userid).css("color","green")
+            $("#" + userid + " span").css("background-color","green")
         })
         
         connection.on("Offlineuser", function (userid) {
-            $("#" + userid).css("color", "red")
+            $("#" + userid + " span").css("background-color", "red")
         })
 
     </script>
