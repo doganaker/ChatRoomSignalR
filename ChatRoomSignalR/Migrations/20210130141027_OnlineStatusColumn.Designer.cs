@@ -3,14 +3,16 @@ using ChatRoomSignalR.Models.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ChatRoomSignalR.Migrations
 {
     [DbContext(typeof(ChatContext))]
-    partial class ChatContextModelSnapshot : ModelSnapshot
+    [Migration("20210130141027_OnlineStatusColumn")]
+    partial class OnlineStatusColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

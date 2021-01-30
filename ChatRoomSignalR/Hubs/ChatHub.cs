@@ -13,23 +13,29 @@ namespace ChatRoomSignalR.Hubs
     {
         private ChatContext _chatcontext;
 
-        //private List<AdminUser> onlineUsers = new List<AdminUser>();
-
         public override Task OnConnectedAsync()
         {
             GetUser().ConnectionID = Context.ConnectionId;
 
             _chatcontext.SaveChanges();
 
+            GetUser().OnlineStatus = true;
+
+            _chatcontext.SaveChanges();
+
             string connectuserid = Context.User.Claims.ToArray()[1].Value;
 
-             Clients.All.SendAsync("Onlineuser", connectuserid);
+            Clients.All.SendAsync("Onlineuser", connectuserid);
 
             return base.OnConnectedAsync();
         }
 
         public override Task OnDisconnectedAsync(Exception exception)
         {
+            GetUser().OnlineStatus = false;
+
+            _chatcontext.SaveChanges();
+
             string connectuserid = Context.User.Claims.ToArray()[1].Value;
 
             Clients.All.SendAsync("Offlineuser", connectuserid);

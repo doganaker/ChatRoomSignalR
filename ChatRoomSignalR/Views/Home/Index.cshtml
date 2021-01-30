@@ -59,7 +59,15 @@
                 {
                     if (item.EMail != ViewBag.Name)
                     {
-                        <li id="@item.ID">@item.EMail.Substring(0,1).ToUpper()@item.EMail.Substring(1,item.EMail.IndexOf("@")-1)</li>
+                        if (item.OnlineStatus == true)
+                        {
+                            <li id="@item.ID" style="color:forestgreen">@item.EMail.Substring(0, 1).ToUpper()@item.EMail.Substring(1, item.EMail.IndexOf("@") - 1)</li>
+                        }
+                        else
+                        {
+                            <li id="@item.ID" style="color:red">@item.EMail.Substring(0, 1).ToUpper()@item.EMail.Substring(1, item.EMail.IndexOf("@") - 1)</li>
+                        }
+
                     }
                 }
             </ul>
