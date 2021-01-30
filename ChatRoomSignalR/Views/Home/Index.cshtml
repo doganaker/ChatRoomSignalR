@@ -135,6 +135,13 @@
         });
 
 
+        connection.on("Onlineuser", function (userid) {
+            $("#" + userid).css("color","green")
+        })
+        
+        connection.on("Offlineuser", function (userid) {
+            $("#" + userid).css("color", "red")
+        })
 
     </script>
 </body>

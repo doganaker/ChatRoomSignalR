@@ -1,4 +1,5 @@
 ﻿using ChatRoomSignalR.Models.Context;
+using ChatRoomSignalR.Models.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -12,23 +13,27 @@ namespace ChatRoomSignalR.Hubs
     {
         private ChatContext _chatcontext;
 
+        //private List<AdminUser> onlineUsers = new List<AdminUser>();
+
         public override Task OnConnectedAsync()
         {
-            _chatcontext = new ChatContext();
-
-            var email = Context.User.Claims.ToArray()[0].Value;
-
-            var currentUser = _chatcontext.AdminUsers.FirstOrDefault(x => x.EMail == email);
-
-            currentUser.ConnectionID = Context.ConnectionId;
+            GetUser().ConnectionID = Context.ConnectionId;
 
             _chatcontext.SaveChanges();
+
+            string connectuserid = Context.User.Claims.ToArray()[1].Value;
+
+             Clients.All.SendAsync("Onlineuser", connectuserid);
 
             return base.OnConnectedAsync();
         }
 
         public override Task OnDisconnectedAsync(Exception exception)
         {
+            string connectuserid = Context.User.Claims.ToArray()[1].Value;
+
+            Clients.All.SendAsync("Offlineuser", connectuserid);
+
             return base.OnDisconnectedAsync(exception);
         }
 
@@ -37,6 +42,17 @@ namespace ChatRoomSignalR.Hubs
             string msg = message;
             await Clients.Caller.SendAsync("ReceiveMessage", msg);
             await Clients.Client(connectionid).SendAsync("ReceiveMessage", msg);
+        }
+      
+        private AdminUser GetUser()
+        {
+            _chatcontext = new ChatContext();
+
+            var email = Context.User.Claims.ToArray()[0].Value;
+
+            var currentUser = _chatcontext.AdminUsers.FirstOrDefault(x => x.EMail == email);
+
+            return currentUser;
         }
     }
 }

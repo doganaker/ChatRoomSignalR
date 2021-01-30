@@ -33,7 +33,8 @@ namespace ChatRoomSignalR.Controllers
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Email, model.Email)
+                    new Claim(ClaimTypes.Email, model.Email),
+                    new Claim(ClaimTypes.Name, user.ID.ToString())
                 };
 
                 var userIdentity = new ClaimsIdentity(claims, "login");
