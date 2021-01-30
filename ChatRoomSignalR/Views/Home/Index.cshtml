@@ -97,6 +97,8 @@
 
         $("#contacts li").click(function () {
 
+            $("#chat li").remove();
+
             $(".chatbox").css('visibility', 'visible');
 
             var id = $(this).attr("id");
