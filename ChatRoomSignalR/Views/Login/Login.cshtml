@@ -7,27 +7,64 @@
     
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Index</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-        <style>
-            .form{
-                margin-top: 15%;
-                display:flex;
-                justify-content:center;
-                align-items:center;
-                flex-direction:column;
-            }
-        </style>
-    </head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #4788FF;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .form h1 {
+            color: #4788FF;
+            font-size: 45px;
+            margin-bottom: 30px;
+        }
+
+        .form {
+            width: 400px;
+            height: 400px;
+            background-color: ghostwhite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: 1px solid #bbb;
+            border-radius: 20px;
+        }
+
+        .row label {
+            color: #4788FF;
+        }
+
+        .title {
+            margin-top: 5%;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 100px;
+            -webkit-text-stroke: 2px ghostwhite;
+            color: #4788FF;
+        }
+    </style>
+</head>
     <body>
         <div class="container">
-            
+            <h1 class="title">ChatRoom</h1>
+            <br />
             <div class="form">
                 <div class="row">
                     <h1>Login</h1>
@@ -36,29 +73,29 @@
                 <br />
 
                 <form action="/Login/Login" method="post">
-                    <div class="row">
-                        <div class="col-md-4">
-                            @Html.LabelFor(q => q.Email) :
+                    <div class="form-group">
+                        <div class="row">
+                            <label><strong>EMail</strong></label>
                         </div>
-                        <div class="col-md-7">
-                            @Html.TextBoxFor(q => q.Email, new { @type = "email" })
-                        </div>
-                    </div>
-
-                    <br />
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            @Html.LabelFor(q => q.Password) :
-                        </div>
-                        <div class="col-md-7">
-                            @Html.PasswordFor(q => q.Password)
+                        <div class="row">
+                            @Html.TextBoxFor(q => q.Email, new { @type = "email",@class="form-control" })
                         </div>
                     </div>
 
                     <br />
 
-                    <button class="btn btn-success float-right" type="submit">Login</button>
+                    <div class="form-group">
+                        <div class="row">
+                            <label><strong>Password</strong></label>
+                        </div>
+                        <div class="row">
+                            @Html.PasswordFor(q => q.Password, new {@class="form-control"})
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <button class="btn btn-outline-primary float-right" type="submit">Login</button>
                 </form>
 
             </div>
