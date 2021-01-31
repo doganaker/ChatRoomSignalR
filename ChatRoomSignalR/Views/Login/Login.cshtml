@@ -30,10 +30,15 @@
             flex-direction: column;
         }
 
+        .container a{
+            text-decoration: none;
+        }
+
         .form h1 {
-            color: #4788FF;
+            color: ghostwhite;
             font-size: 45px;
             margin-bottom: 30px;
+            -webkit-text-stroke: 2px #4788FF;
         }
 
         .form {
@@ -49,21 +54,24 @@
         }
 
         .row label {
-            color: #4788FF;
+            color: ghostwhite;
+            -webkit-text-stroke: 1px #4788FF;
+            font-size:20px;
         }
 
         .title {
             margin-top: 5%;
             font-family: 'Permanent Marker', cursive;
             font-size: 100px;
-            -webkit-text-stroke: 2px ghostwhite;
-            color: #4788FF;
+            -webkit-text-stroke: 6px #4788FF;
+            text-shadow: -7px 0 ghostwhite, 0 7px ghostwhite, 5px 0 ghostwhite, 0 -5px ghostwhite;
+            color: ghostwhite;
         }
     </style>
 </head>
     <body>
         <div class="container">
-            <h1 class="title">ChatRoom</h1>
+            <a href="/"><h1 class="title">ChatRoom</h1></a>
             <br />
             <div class="form">
                 <div class="row">
@@ -75,7 +83,7 @@
                 <form action="/Login/Login" method="post">
                     <div class="form-group">
                         <div class="row">
-                            <label><strong>EMail</strong></label>
+                            <label>EMail</label>
                         </div>
                         <div class="row">
                             @Html.TextBoxFor(q => q.Email, new { @type = "email",@class="form-control" })
@@ -86,7 +94,7 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <label><strong>Password</strong></label>
+                            <label>Password</label>
                         </div>
                         <div class="row">
                             @Html.PasswordFor(q => q.Password, new {@class="form-control"})
