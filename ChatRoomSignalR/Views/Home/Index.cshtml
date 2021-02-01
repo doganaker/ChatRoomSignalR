@@ -41,6 +41,14 @@
             align-items: center;
         }
 
+        .chatall {
+            padding-right:0px;
+            padding-left: 0px;
+            display:flex;
+            flex-direction:column;
+            justify-content:flex-end;
+        }
+
         .chatbox {
             visibility: hidden;
             border: 1px solid gainsboro;
@@ -98,10 +106,19 @@
             border-radius: 50%;
             width: 38px;
             height: 38px;
-            margin-left: -38px;
             display:flex;
             justify-content:center;
             align-items:center;
+        }
+
+        #contacts::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        #contacts::-webkit-scrollbar-thumb{
+            background:#888;
+        }
+        #contacts::-webkit-scrollbar-thumb:hover{
+            background:#555;
         }
     </style>
 </head>
@@ -144,7 +161,7 @@
                                         <div class="dot" style="background-color:green"></div>
                                         @item.EMail.Substring(0, 1).ToUpper()@item.EMail.Substring(1, item.EMail.IndexOf("@") - 1)
                                     </div>
-                                    <span style="padding-right:10px;">@DateTime.Now.ToString("dd MMM")</span>
+                                    <span style="padding-right:25px;">@DateTime.Now.ToString("dd MMM")</span>
                                 </li>
                             }
                             else
@@ -155,7 +172,7 @@
                                         @item.EMail.Substring(0, 1).ToUpper()@item.EMail.Substring(1, item.EMail.IndexOf("@") - 1)
                                     </div>
 
-                                    <span style="padding-right:10px;">@DateTime.Now.ToString("dd MMM")</span>
+                                    <span style="padding-right:25px;">@DateTime.Now.ToString("dd MMM")</span>
                                 </li>
                             }
 
@@ -163,12 +180,12 @@
                     }
                 </ul>
             </div>
-            <div class="col-md-8" style="padding-right:0px;padding-left:0px;">
+            <div class="col-md-8 chatall">
                 <div class="chatbox">
                     <ul id="chat">
                     </ul>
                 </div>
-                <div class="input-group mb-3 chatbox">
+                <div class="input-group chatbox">
                     <input type="text" class="form-control" name="name" id="msg" value="" style="border-radius:100px;"/>
                     <div class="input-group-append">
                         <button id="btnSend" class="btn btn-outline-primary"> <i class="fa fa-paper-plane" style="font-size:20px;"></i> </button>
