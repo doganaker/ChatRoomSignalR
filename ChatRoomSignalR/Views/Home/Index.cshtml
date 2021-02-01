@@ -22,33 +22,22 @@
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
 
     <style>
-        .flat {
+
+        body {
+            background-color: lightcyan;
+        }
+
+        .all {
+            border: 1px solid gainsboro;
+            background-color:ghostwhite;
+        }
+
+        .titlebox {
+            border: 1px solid gainsboro;
+            height: 100px;
             display: flex;
-            border: 1px solid gainsboro;
-            width: 465px;
-            height: auto;
-            justify-content: start;
-        }
-
-        #contacts li:hover {
-            color: dodgerblue;
-            cursor: pointer;
-        }
-
-        #contacts li {
-            list-style-type: none;
-        }
-
-        #chat li {
-            list-style-type: none;
-        }
-
-        .chatbox {
-            visibility: hidden;
-            border: 1px solid gainsboro;
-            width: auto;
-            height: unset;
-            justify-content: start;
+            justify-content: center;
+            align-items: center;
         }
 
         .dot {
@@ -58,6 +47,14 @@
             border-radius: 50%;
             display: inline-block;
             margin-right: 10px;
+            margin-left: 15px;
+        }
+
+        .text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 25px;
+            -webkit-text-stroke: 0px #4788FF;
+            text-shadow: 0 0 black;
         }
 
         .navbar-brand {
@@ -67,17 +64,27 @@
             text-shadow: -2px 0 ghostwhite, 0 2px ghostwhite, 0px 0 ghostwhite, 0 0px ghostwhite;
         }
 
-        .text {
-            font-family: 'Dancing Script', cursive;
-            font-size: 25px !important;
-            -webkit-text-stroke: 0px #4788FF;
-            text-shadow: 0 0 black;
-            margin-top: auto;
+        .contact{
+            border: 1px solid gainsboro;
+            height: 100px;
         }
 
-        .row h3 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 25px !important;
+        #contacts{
+            padding-inline-start: 0px;
+            margin-block-end: auto;
+        }
+
+        #contacts li {
+            list-style-type: none;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        #contacts li:hover{
+            background-color:#4788FF;
+            color:ghostwhite;
+            cursor:pointer;
         }
     </style>
 </head>
@@ -97,58 +104,62 @@
 
     <br />
 
-    <div class="container">
-        <header class="text">
-            Welcome, @ViewBag.Name.Substring(0, 1).ToUpper()@ViewBag.Name.Substring(1, ViewBag.Name.IndexOf("@") - 1) !
-        </header>
-    </div>
-
-    <br />
-
-    <div class="container">
+    <div class="container all">
         <div class="row">
-            <div class="col-md-5">
-                <div class="flat">
-                    <div class="col-md-4">
-                        <h3>Contacts</h3>
-                        <br />
-                        <ul id="contacts">
-                            @foreach (var item in Model)
-                            {
-                                if (item.EMail != ViewBag.Name)
-                                {
-                                    if (item.OnlineStatus == true)
-                                    {
-
-                                        <li id="@item.ID"><span class="dot" style="background-color:green"></span>@item.EMail.Substring(0, 1).ToUpper()@item.EMail.Substring(1, item.EMail.IndexOf("@") - 1)</li>
-                                    }
-                                    else
-                                    {
-
-                                        <li id="@item.ID"><span class="dot" style="background-color:red"></span>@item.EMail.Substring(0, 1).ToUpper()@item.EMail.Substring(1, item.EMail.IndexOf("@") - 1)</li>
-                                    }
-
-                                }
-                            }
-                        </ul>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-7">
-                <div class="chatbox">
-                    <ul id="chat">
-                    </ul>
-                    <br />
-                    <input type="text" name="name" id="msg" value="" />
-                    <button id="btnSend" class="btn btn-primary"> Send </button>
-                </div>
+            <div class="col-md-4 titlebox">
+                <header class="text">
+                    Welcome, @ViewBag.Name.Substring(0, 1).ToUpper()@ViewBag.Name.Substring(1, ViewBag.Name.IndexOf("@") - 1) !
+                </header>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-4 titlebox">
+                <h3 class="text" style="font-size:30px;">Contacts</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" style="padding-right:0px;padding-left:0px;">
+                <ul id="contacts">
+                    @foreach (var item in Model)
+                    {
+                        if (item.EMail != ViewBag.Name)
+                        {
+                            if (item.OnlineStatus == true)
+                            {
+                                <li class="contact" id="@item.ID">
+                                    <div style="padding-left:25px;">
+                                        <div class="dot" style="background-color:green"></div>
+                                        @item.EMail.Substring(0, 1).ToUpper()@item.EMail.Substring(1, item.EMail.IndexOf("@") - 1)
+                                    </div>
+                                    <span style="padding-right:10px;">@DateTime.Now.ToString("dd MMM")</span>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="contact" id="@item.ID">
+                                    <div style="padding-left:25px;">
+                                        <div class="dot" style="background-color:red"></div>
+                                        @item.EMail.Substring(0, 1).ToUpper()@item.EMail.Substring(1, item.EMail.IndexOf("@") - 1)
+                                    </div>
+                                    
+                                    <span style="padding-right:10px;">@DateTime.Now.ToString("dd MMM")</span>
+                                </li>
+                            }
 
-
-
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
     </div>
+
+
+
+
+
+
+
+
 
     <script>
 
@@ -210,11 +221,11 @@
 
 
         connection.on("Onlineuser", function (userid) {
-            $("#" + userid + " span").css("background-color", "green")
+            $("#" + userid + " div").css("background-color", "green")
         })
 
         connection.on("Offlineuser", function (userid) {
-            $("#" + userid + " span").css("background-color", "red")
+            $("#" + userid + " div").css("background-color", "red")
         })
 
     </script>
