@@ -87,6 +87,8 @@
         #contacts {
             padding-inline-start: 0px;
             margin-block-end: auto;
+            height: 400px;
+            overflow-y: scroll;
         }
 
         #contacts li {
@@ -102,6 +104,10 @@
             cursor: pointer;
         }
 
+        #chat li{
+            list-style-type:none;
+        }
+
         #btnSend {
             border-radius: 50%;
             width: 38px;
@@ -111,6 +117,9 @@
             align-items:center;
         }
 
+        #contacts::-webkit-scrollbar {
+            width: 5px;
+        }
         #contacts::-webkit-scrollbar-track {
             background: #f1f1f1;
         }
