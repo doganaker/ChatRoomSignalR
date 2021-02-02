@@ -51,7 +51,6 @@
 
         .chatbox {
             visibility: hidden;
-            border: 1px solid gainsboro;
             height: inherit;
         }
 
@@ -104,6 +103,16 @@
             cursor: pointer;
         }
 
+        #chat{
+            height: 562px;
+            overflow-y: scroll;
+            display:flex;
+            flex-direction:column;
+            justify-content: flex-end;
+            margin-bottom: 0px;
+            padding-bottom: 25px;
+        }
+
         #chat li{
             list-style-type:none;
         }
@@ -117,6 +126,22 @@
             align-items:center;
         }
 
+        #chat::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        #chat::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        #chat::-webkit-scrollbar-thumb {
+            background: #4788FF;
+        }
+
+        #chat::-webkit-scrollbar-thumb:hover {
+            background: #0709f7;
+        }
+
         #contacts::-webkit-scrollbar {
             width: 5px;
         }
@@ -124,10 +149,10 @@
             background: #f1f1f1;
         }
         #contacts::-webkit-scrollbar-thumb{
-            background:#888;
+            background:#4788FF;
         }
-        #contacts::-webkit-scrollbar-thumb:hover{
-            background:#555;
+        #contacts::-webkit-scrollbar-thumb:hover {
+            background: #0709f7;
         }
     </style>
 </head>
