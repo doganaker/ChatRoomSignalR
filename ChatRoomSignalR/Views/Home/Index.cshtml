@@ -42,11 +42,11 @@
         }
 
         .chatall {
-            padding-right:0px;
+            padding-right: 0px;
             padding-left: 0px;
-            display:flex;
-            flex-direction:column;
-            justify-content:flex-end;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
 
         .chatbox {
@@ -90,40 +90,40 @@
             overflow-y: scroll;
         }
 
-        #contacts li {
-            list-style-type: none;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+            #contacts li {
+                list-style-type: none;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
 
-        #contacts li:hover {
-            background-color: #4788FF;
-            color: ghostwhite;
-            cursor: pointer;
-        }
+                #contacts li:hover {
+                    background-color: #4788FF;
+                    color: ghostwhite;
+                    cursor: pointer;
+                }
 
-        #chat{
+        #chat {
             height: 562px;
             overflow-y: scroll;
-            display:flex;
-            flex-direction:column;
+            display: flex;
+            flex-direction: column;
             justify-content: flex-end;
             margin-bottom: 0px;
             padding-bottom: 25px;
         }
 
-        #chat li{
-            list-style-type:none;
-        }
+            #chat li {
+                list-style-type: none;
+            }
 
         #btnSend {
             border-radius: 50%;
             width: 38px;
             height: 38px;
-            display:flex;
-            justify-content:center;
-            align-items:center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         #chat::-webkit-scrollbar {
@@ -138,22 +138,25 @@
             background: #4788FF;
         }
 
-        #chat::-webkit-scrollbar-thumb:hover {
-            background: #0709f7;
-        }
+            #chat::-webkit-scrollbar-thumb:hover {
+                background: #0709f7;
+            }
 
         #contacts::-webkit-scrollbar {
             width: 5px;
         }
+
         #contacts::-webkit-scrollbar-track {
             background: #f1f1f1;
         }
-        #contacts::-webkit-scrollbar-thumb{
-            background:#4788FF;
+
+        #contacts::-webkit-scrollbar-thumb {
+            background: #4788FF;
         }
-        #contacts::-webkit-scrollbar-thumb:hover {
-            background: #0709f7;
-        }
+
+            #contacts::-webkit-scrollbar-thumb:hover {
+                background: #0709f7;
+            }
     </style>
 </head>
 <body>
@@ -220,7 +223,7 @@
                     </ul>
                 </div>
                 <div class="input-group chatbox">
-                    <input type="text" class="form-control" name="name" id="msg" value="" style="border-radius:100px;"/>
+                    <input type="text" class="form-control" name="name" id="msg" value="" style="border-radius:100px;" />
                     <div class="input-group-append">
                         <button id="btnSend" class="btn btn-outline-primary"> <i class="fa fa-paper-plane" style="font-size:20px;"></i> </button>
                     </div>
@@ -236,7 +239,6 @@
         var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
 
-
         connection.start().then(function () {
 
             console.log("Connection established!")
@@ -245,6 +247,7 @@
 
             return console.error(err.ToString());
         });
+
 
         var connectionid = "";
 
