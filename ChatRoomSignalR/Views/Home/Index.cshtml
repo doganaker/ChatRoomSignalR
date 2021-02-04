@@ -83,6 +83,32 @@
             height: 75px;
         }
 
+        .caller{
+            border: 1px hidden gainsboro;
+            border-radius:20px;
+            background-color: #4788FF;
+            width: fit-content;
+            padding: 10px;
+            color: white;
+        }
+
+        .caller p{
+            margin-bottom:0;
+        }
+
+        .client {
+            border: 1px hidden gainsboro;
+            border-radius: 20px;
+            background-color: aqua;
+            width: fit-content;
+            padding: 10px;
+            color: black;
+        }
+
+        .client p{
+            margin-bottom:0;
+        }
+
         #contacts {
             padding-inline-start: 0px;
             margin-block-end: auto;
@@ -90,18 +116,18 @@
             overflow-y: scroll;
         }
 
-            #contacts li {
-                list-style-type: none;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
+        #contacts li {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-                #contacts li:hover {
-                    background-color: #4788FF;
-                    color: ghostwhite;
-                    cursor: pointer;
-                }
+        #contacts li:hover {
+            background-color: #4788FF;
+            color: ghostwhite;
+            cursor: pointer;
+        }
 
         #chat {
             height: 562px;
@@ -113,9 +139,10 @@
             padding-bottom: 25px;
         }
 
-            #chat li {
-                list-style-type: none;
-            }
+        #chat li {
+            list-style-type: none;
+            margin-bottom:10px;
+        }
 
         #btnSend {
             border-radius: 50%;
@@ -138,9 +165,9 @@
             background: #4788FF;
         }
 
-            #chat::-webkit-scrollbar-thumb:hover {
-                background: #0709f7;
-            }
+        #chat::-webkit-scrollbar-thumb:hover {
+            background: #0709f7;
+        }
 
         #contacts::-webkit-scrollbar {
             width: 5px;
@@ -154,9 +181,9 @@
             background: #4788FF;
         }
 
-            #contacts::-webkit-scrollbar-thumb:hover {
-                background: #0709f7;
-            }
+        #contacts::-webkit-scrollbar-thumb:hover {
+            background: #0709f7;
+        }
     </style>
 </head>
 <body>
@@ -238,16 +265,18 @@
 
         var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
+        var selfCid = "";
 
         connection.start().then(function () {
 
-            console.log("Connection established!")
+            selfCid = connection.connectionId;
+
+            console.log("Connection established!");
 
         }).catch(function (err) {
 
             return console.error(err.ToString());
         });
-
 
         var connectionid = "";
 
@@ -285,9 +314,14 @@
 
         });
 
-        connection.on("ReceiveMessage", function (msg) {
+        connection.on("ReceiveMessage", function (userCid,msg) {
 
-            $("#chat").append("<li>" + msg + "</li>");
+            if (selfCid == userCid) {
+                $("#chat").append('<li class="caller"><p>' + msg + '</p></li>');
+            }
+            else {
+                $("#chat").append('<li class="client"><p>' + msg + '</p></li>');
+            }
         });
 
 
