@@ -300,6 +300,25 @@
                 }
             });
 
+            var callerId = @ViewBag.id;
+
+            var url2 = "/GetChat/" + callerId + "/" + id;
+
+            $.ajax({
+                type: "GET",
+                url: url2,
+                dataType: "json",
+                success: function (chat) {
+                    chat.forEach((item) => {
+                        if (item.callerID == callerId) {
+                            $("#chat").append('<li class="caller"><p>' + item.content + '</p></li>');
+                        }
+                        else {
+                            $("#chat").append('<li class="client"><p>' + item.content + '</p></li>');
+                        }
+                    });
+                }
+            })
         });
 
 
