@@ -14,5 +14,6 @@ namespace ChatRoomSignalR.Models.Context
             optionsBuilder.UseSqlServer(@"server=localhost\SQLEXPRESS;database=ChatDB;trusted_connection=true;");
         }
         public DbSet<AdminUser> AdminUsers { get; set; }
+        public DbSet<Message> Messages { get; set; }
     }
 }

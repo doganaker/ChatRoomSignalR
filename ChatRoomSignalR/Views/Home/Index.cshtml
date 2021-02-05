@@ -279,6 +279,7 @@
         });
 
         var connectionid = "";
+        var id = "";
 
         $("#contacts li").click(function () {
 
@@ -286,7 +287,7 @@
 
             $(".chatbox").css('visibility', 'visible');
 
-            var id = $(this).attr("id");
+            id = $(this).attr("id");
             var url = "/Home/User/" + id;
 
             $.ajax({
@@ -305,14 +306,27 @@
         $("#btnSend").click(function () {
 
             var message = $("#msg").val();
+            var clientId = id;
 
-            connection.invoke("SendMessage", connectionid, message).catch(function (err) {
+            console.log(clientId);
+
+            connection.invoke("SendMessage", clientId, connectionid, message).catch(function (err) {
 
             });
 
             $("#msg").val("");
 
         });
+
+        $("#msg").keypress(function (e) {
+
+            var key = e.which;
+            if (key == 13) {
+
+                $("#btnSend").click();
+                return false;
+            }
+        })
 
         connection.on("ReceiveMessage", function (userCid,msg) {
 

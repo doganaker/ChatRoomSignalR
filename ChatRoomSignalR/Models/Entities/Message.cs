@@ -9,16 +9,9 @@ namespace ChatRoomSignalR.Models.Entities
     public class Message
     {
         public int ID { get; set; }
-
-        public Nullable<int> CallerID { get; set; }
-        [ForeignKey("CallerID")]
-        public AdminUser Caller { get; set; }
-
-        public Nullable<int> ClientID { get; set; }
-        [ForeignKey("ClientID")]
-        public AdminUser Client { get; set; }
-
+        public int CallerID { get; set; }
+        public int ClientID { get; set; }
         public string Content { get; set; }
-        public DateTime Time { get; set; } = DateTime.Now;
+        public string Time { get; set; } = DateTime.Now.ToString("HH:mm");
     }
 }
